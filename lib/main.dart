@@ -19,7 +19,7 @@ class MyPage extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Ferdinand 253303610006'),
+          title: const Text('Ferdinand Binsar 253303610006'),
         ),
         body: ListView.builder(
           itemCount: nama.length,
