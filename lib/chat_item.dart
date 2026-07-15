@@ -1,88 +1,83 @@
 import 'package:flutter/material.dart';
-import 'login_page.dart';
+import 'chat_model.dart';
+import 'detail_page.dart';
 
 class ChatItem extends StatelessWidget {
-  final String nama;
+
+  final ChatModel chat;
 
   const ChatItem({
     super.key,
-    required this.nama,
+    required this.chat,
   });
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
+
+    return InkWell(
+
+      onTap: (){
+
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => LoginPage(nama: nama),
+            builder: (_) => DetailPage(chat: chat),
           ),
         );
+
       },
-      child: Column(
-        children: [
-          Container(
-            margin: const EdgeInsets.all(8),
-            padding: const EdgeInsets.symmetric(horizontal: 8),
-            decoration: BoxDecoration(
-              color: Colors.lightBlue,
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(20),
-                bottomRight: Radius.circular(20),
-              ),
-              border: Border.all(
-                color: Colors.red,
-                width: 2,
-              ),
-            ),
-            child: Row(
-              children: [
-                const CircleAvatar(
-                  radius: 25,
-                  backgroundImage: AssetImage('img/avatar.jpg.jpeg'),
-                ),
 
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          nama,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                          ),
-                        ),
+      child: Card(
 
-                        const Row(
-                          children: [
-                            Icon(Icons.check, color: Colors.blue),
-                            SizedBox(width: 5),
-                            Text("Halo"),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+        margin: const EdgeInsets.symmetric(
+          horizontal: 15,
+          vertical: 8,
+        ),
 
-                const Text(
-                  "Online",
-                  style: TextStyle(fontSize: 16),
-                ),
-              ],
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+
+        child: ListTile(
+
+          leading: CircleAvatar(
+            radius: 28,
+            backgroundImage: AssetImage(chat.avatar),
+          ),
+
+          title: Text(
+            chat.nama,
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
             ),
           ),
 
-          const Text(
-            "Ini adalah pembatas",
-            style: TextStyle(fontSize: 14),
+          subtitle: Row(
+
+            children: [
+
+              Icon(
+                Icons.done_all,
+                color: chat.dibaca
+                    ? Colors.blue
+                    : Colors.grey,
+                size: 18,
+              ),
+
+              SizedBox(width:5),
+
+              Expanded(
+                child: Text(chat.pesan),
+              ),
+
+            ],
           ),
-        ],
+
+          trailing: Text(chat.waktu),
+
+        ),
       ),
     );
+
   }
 }
